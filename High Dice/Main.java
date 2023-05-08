@@ -27,13 +27,13 @@ public class Main {
         // scan
         Scanner scan = new Scanner(System.in);
         String name = "NULL";
-        while(players.size() != 11){
+        while(players.size() != 10){
             System.out.println("Enter name for player "+ players.size() + "(or type 'done' to finish)");
             name = scan.nextLine();
             if(name.equals("done")) break;
             players.add(new Player(name));
         }
-        while(players.size() > 1){
+        while(true){
             int die1 = (int)(Math.random() * 6 - 1) + 1;
             int die2 = (int)(Math.random() * 6 - 1) + 1;
             for(Player p : players){
@@ -42,11 +42,19 @@ public class Main {
             if(die1 == 1 && die2 == 1){
                 System.out.println("The banker rolled 1-1! Banker loses! Players win!");
                 for(int i = 0; i < players.size(); i++){
-                    players.get(i).setChips(players.get(i).getChips() + players.get(i).getChips());
+                    players.get(i).setChips(players.get(i).getBet() + players.get(i).getBet());
                 }
             }
+            System.out.println("The banker rolled "+die1+" and "+die2);
             for(Player p : players){
                 p.roll(die1,die2);
+            }
+            System.out.println("Round over, each players chips: ");
+            for(Player p : players){
+                System.out.println(p.getName() + " | Chips = "+p.getChips());
+                if(p.getChips() < 0){
+                    System.out.println(p.getName()+ " lost all their money. They are out.");
+                }
             }
         }
     }
