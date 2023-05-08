@@ -13,7 +13,7 @@ public class Player{
     public void bet(){
         Scanner scan = new Scanner(System.in);
         bet = -1;
-        System.out.println(name + ", amount of chips you're betting(you have "+chips+"chips): ");
+        System.out.println(name + ", amount of chips you're betting(you have "+chips+" chips): ");
         while(bet < 0 || bet > chips){
             try{
                 bet = scan.nextInt();
@@ -24,7 +24,6 @@ public class Player{
         }
         System.out.println(name + " bet "+bet+" chips.");
         this.setChips(this.getChips() - this.getBet());
-        scan.close();
     }
     public void roll(int die1, int die2) {
         int m = (int)(Math.random() * 6 - 1) + 1;

@@ -33,30 +33,42 @@ public class Main {
             if(name.equals("done")) break;
             players.add(new Player(name));
         }
-        scan.close();
-        while(true){
+        //scan.close(); // closing the scan caused issues for some reason ????
+        int rounds = 0;  
+        while(players.size() > 1){
+            rounds++;
+            System.out.println("== High Dice > Game > Gameplay loop("+rounds+" round)=="); 
             int die1 = (int)(Math.random() * 6 - 1) + 1;
             int die2 = (int)(Math.random() * 6 - 1) + 1;
             for(Player p : players){
-                p.bet();
+                p.bet();    
             }
             if(die1 == 1 && die2 == 1){
                 System.out.println("The banker rolled 1-1! Banker loses! Players win!");
                 for(int i = 0; i < players.size(); i++){
                     players.get(i).setChips(players.get(i).getBet() + players.get(i).getBet());
                 }
+            }else{
+                System.out.println("The banker rolled "+die1+" and "+die2);
+                for(Player p : players)
+                    p.roll(die1,die2);
             }
-            System.out.println("The banker rolled "+die1+" and "+die2);
-            for(Player p : players){
-                p.roll(die1,die2);
-            }
+            System.out.println("=================================");
             System.out.println("Round over, each players chips: ");
+            ArrayList<Player> pR = new ArrayList<>();
             for(Player p : players){
                 System.out.println(p.getName() + " | Chips = "+p.getChips());
                 if(p.getChips() < 0){
                     System.out.println(p.getName()+ " lost all their money. They are out.");
+                    pR.add(p);
                 }
             }
+            // remove players because when you're in a for each loop the ararylist becomes
+            // immutatable
+            for(int i = 0; i < pR.size(); i++){
+                players.remove(pR.get(i));
+            }
+            System.out.println("=================================");
         }
     }
 }
