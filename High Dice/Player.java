@@ -24,6 +24,7 @@ public class Player{
         }
         System.out.println(name + " bet "+bet+" chips.");
         this.setChips(this.getChips() - this.getBet());
+        scan.close();
     }
     public void roll(int die1, int die2) {
         int m = (int)(Math.random() * 6 - 1) + 1;

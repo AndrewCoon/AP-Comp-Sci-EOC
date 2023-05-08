@@ -33,6 +33,7 @@ public class Main {
             if(name.equals("done")) break;
             players.add(new Player(name));
         }
+        scan.close();
         while(true){
             int die1 = (int)(Math.random() * 6 - 1) + 1;
             int die2 = (int)(Math.random() * 6 - 1) + 1;
